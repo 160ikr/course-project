@@ -7,30 +7,35 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // REST API Request: POST new user to json-server
     await fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
-
-    alert('Registration successful! Please login.');
-    navigate('/login'); // Redirect to login after successful register
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    alert('Registration successful!');
+    navigate('/login');
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '200px', gap: '10px' }}>
-        <input type="text" name="username" placeholder="Username" required onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" required onChange={handleChange} />
-        <button type="submit">Sign Up</button>
-      </form>
+    <div className="auth-page">
+      <div className="card">
+        <h2>Create Account</h2>
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            placeholder="Choose Username" 
+            required 
+            onChange={(e) => setFormData({ ...formData, username: e.target.value })} 
+          />
+          <input 
+            type="password" 
+            placeholder="Create Password" 
+            required 
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
+          />
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 }

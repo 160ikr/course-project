@@ -7,8 +7,6 @@ function Login({ setIsAuthenticated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // REST API Request: GET users to verify
     const response = await fetch('http://localhost:5000/users');
     const users = await response.json();
 
@@ -18,24 +16,32 @@ function Login({ setIsAuthenticated }) {
 
     if (userExists) {
       setIsAuthenticated(true);
-      navigate('/'); // Redirect to home
+      navigate('/');
     } else {
       alert('Invalid credentials');
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '200px', gap: '10px' }}>
-        <input type="text" name="username" placeholder="Username" required onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" required onChange={handleChange} />
-        <button type="submit">Log In</button>
-      </form>
+    <div className="auth-page">
+      <div className="card">
+        <h2>Account Login</h2>
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            placeholder="Username" 
+            required 
+            onChange={(e) => setFormData({ ...formData, username: e.target.value })} 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            required 
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
+          />
+          <button type="submit">Log In</button>
+        </form>
+      </div>
     </div>
   );
 }

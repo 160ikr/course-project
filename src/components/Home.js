@@ -3,27 +3,27 @@ import React, { useState, useEffect } from 'react';
 function Home() {
   const [data, setData] = useState([]);
 
+  // Fetch data from the mock database as soon as the page loads
   useEffect(() => {
-    // REST API Request: GET dynamic data
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/posts');
-      const result = await response.json();
-      setData(result);
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures this runs once on mount
+    fetch('http://localhost:5000/posts')
+      .then((res) => res.json())
+      .then((posts) => setData(posts))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
-    <div>
-      <h1>Main Dashboard</h1>
-      <p>Welcome to the application!</p>
+    <div className="container">
+      <div className="dashboard-header">
+        <span className="status-badge">● Live Feed</span>
+        <h1>Community Dashboard</h1>
+        <p>Displaying dynamic data fetched from the REST API database.</p>
+      </div>
       
-      <h3>Dynamic Data from Database:</h3>
-      <ul>
+      <ul className="post-list">
         {data.map((item) => (
-          <li key={item.id}>
-            <strong>{item.title}</strong>: {item.content}
+          <li key={item.id} className="post-item">
+            <h3>{item.title}</h3>
+            <p>{item.content}</p>
           </li>
         ))}
       </ul>
