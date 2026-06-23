@@ -1,0 +1,7 @@
+{
+  "users": [],
+  "posts": [
+    { "id": 1, "title": "First Dynamic Post", "content": "This is fetched from the REST API." },
+    { "id": 2, "title": "Second Post", "content": "More dynamic data." }
+  ]
+}
