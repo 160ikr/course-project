@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-function Home() {
+function Home({ isAuthenticated }) { // 1. Accept the login status here
   const [data, setData] = useState([]);
 
-  // Fetch data from the mock database as soon as the page loads
   useEffect(() => {
     fetch('http://localhost:5000/posts')
       .then((res) => res.json())
@@ -19,14 +18,22 @@ function Home() {
         <p>Displaying dynamic data fetched from the REST API database.</p>
       </div>
       
-      <ul className="post-list">
-        {data.map((item) => (
-          <li key={item.id} className="post-item">
-            <h3>{item.title}</h3>
-            <p>{item.content}</p>
-          </li>
-        ))}
-      </ul>
+      {/*  If logged in, show the loop. If not, show acess restr*/}
+      {isAuthenticated ? (
+        <ul className="post-list">
+          {data.map((item) => (
+            <li key={item.id} className="post-item">
+              <h3>{item.title}</h3>
+              <p>{item.content}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div style={{ textAlign: 'center', padding: '3rem', color: '#667' }}>
+          <h3> Access Restricted</h3>
+          <p style={{ marginTop: '0.5rem' }}>Please log in or register an account to view the community announcements.</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<Register />} />
       </Routes>
